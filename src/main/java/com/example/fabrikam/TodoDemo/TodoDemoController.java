@@ -24,21 +24,21 @@ public class TodoDemoController {
         return "index";
     }
 
-    @RequestMapping("/add")
-    public String addTodo(@ModelAttribute TodoItem requestItem) {
-        TodoItem item = new TodoItem(requestItem.getCategory(), requestItem.getName());
-        repository.save(item);
-        return "redirect:/";
-    }
+    // @RequestMapping("/add")
+    // public String addTodo(@ModelAttribute TodoItem requestItem) {
+        // TodoItem item = new TodoItem(requestItem.getCategory(), requestItem.getName());
+        // repository.save(item);
+        // return "redirect:/";
+    // }
 
-    @RequestMapping("/update")
-    public String updateTodo(@ModelAttribute TodoListViewModel requestItems) {
-        for (TodoItem requestItem : requestItems.getTodoList() ) {
-             TodoItem item = new TodoItem(requestItem.getCategory(), requestItem.getName());
-             item.setComplete(requestItem.isComplete());
-             item.setId(requestItem.getId());
-             repository.save(item);
-        }
-        return "redirect:/";
-    }
+    // @RequestMapping("/update")
+    // public String updateTodo(@ModelAttribute TodoListViewModel requestItems) {
+        // for (TodoItem requestItem : requestItems.getTodoList() ) {
+             // TodoItem item = new TodoItem(requestItem.getCategory(), requestItem.getName());
+             // item.setComplete(requestItem.isComplete());
+             // item.setId(requestItem.getId());
+             // repository.save(item);
+        // }
+        // return "redirect:/";
+    // }
 }

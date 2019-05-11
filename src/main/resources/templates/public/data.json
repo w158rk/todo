@@ -1,0 +1,50 @@
+[
+    {
+        "itemId"        :   1,
+        "subject"       :   "计算方法",
+        "title"         :   "",
+        "content"       :   "",
+        "issueDate"     :   "",
+        "dueDate"       :   "",
+        "finishDate"    :   "",
+        "submitDate"    :   "",
+        "status"         :   0,
+        "note"          :   ""
+    },
+    {
+        "itemId"        :   2,
+        "subject"       :   "数据库",
+        "title"         :   "",
+        "content"       :   "",
+        "issueDate"     :   "",
+        "dueDate"       :   "",
+        "finishDate"    :   "",
+        "submitDate"    :   "",
+        "status"         :   1,
+        "note"          :   ""
+    },
+    {
+        "itemId"        :   3,
+        "subject"       :   "人工智能",
+        "title"         :   "",
+        "content"       :   "",
+        "issueDate"     :   "",
+        "dueDate"       :   "",
+        "finishDate"    :   "",
+        "submitDate"    :   "",
+        "status"         :   2,
+        "note"          :   ""
+    },
+    {
+        "itemId"        :   4,
+        "subject"       :   "组成原理",
+        "title"         :   "",
+        "content"       :   "",
+        "issueDate"     :   "",
+        "dueDate"       :   "",
+        "finishDate"    :   "",
+        "submitDate"    :   "",
+        "status"         :   3,
+        "note"          :   ""
+    }
+] 

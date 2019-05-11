@@ -1,68 +1,40 @@
 package com.example.fabrikam.TodoDemo;
 
+import java.sql.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import lombok.Data;
 
+
+@Data
 @Entity
 public class TodoItem {
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    private Long id;
-    private String category;
-    private String name;
-    private boolean complete;
+    private Long itemId;
+    private String subject;
+    private String title;
+    private String content;
+    private Date issueDate;
+    private Date dueDate;
+    private Date finishDate;
+    private Date submitDate;
+    private Integer status;
+    private String note;
+    // private String category;
+    // private String name;
+    // private boolean complete;
 
     public TodoItem() {}
 
+    // add for test, I guess
     public TodoItem(String category, String name) {
-        this.category = category;
-        this.name = name;
-        this.complete = false;
+        this.subject = category;
+        this.title = name;
+        this.status = 2;
     }
 
-    @Override
-    public String toString() {
-        return String.format(
-                "TodoItem[id=%d, category='%s', name='%s', complete='%b']",
-                id, category, name, complete);
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-        return;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-        return;
-    }
-
-     public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-        return;
-    }
-
-    public boolean isComplete() {
-        return complete;
-    }
-    
-    public void setComplete(boolean complete) {
-        this.complete = complete;
-        return;
-    }
 }
