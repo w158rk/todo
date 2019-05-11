@@ -15,9 +15,11 @@ class About extends Component {
     }
   
     componentDidMount(){
-        fetch('./data.json')
+        let url = "http://localhost:3000/schedule";
+        fetch(url)
         .then((response) => response.json())
         .then((responseData) => {
+            console.log(responseData);
             this.setState({data:responseData});
         })
         .catch((error) => {
@@ -27,6 +29,7 @@ class About extends Component {
   
     addItem(item) {
         console.log(item);
+        usr = "localhost:3000/schedule/add";
         this.setAdd();
     }
     
