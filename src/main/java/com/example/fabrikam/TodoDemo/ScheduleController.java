@@ -1,12 +1,14 @@
 package com.example.fabrikam.TodoDemo;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ModelAttribute;
-
 import java.util.ArrayList;
 
 import com.alibaba.fastjson.JSON;
@@ -17,16 +19,21 @@ public class ScheduleController {
     @Autowired
     private TodoItemRepository repository;
 
-    @RequestMapping("/schedule")
-    public String index() {
+    @RequestMapping("/back/schedule")
+    public ResponseEntity<String> index() {
         ArrayList<TodoItem> todoList = (ArrayList<TodoItem>) repository.findAll();
 
+        // System.out.println(todoList.length);
         String jsonString = JSON.toJSONString(todoList);
 
-        return jsonString;
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Access-Control-Allow-Origin", "*");
+
+        System.out.println(jsonString);
+        return new ResponseEntity<String>(jsonString, headers,  HttpStatus.OK);
     }
 
-    @RequestMapping("/schedule/add")
+    @RequestMapping("/back/schedule/add")
     public String addTodo(@ModelAttribute TodoItem requestItem) {
         repository.save(requestItem);
         return "redirect:/schedule";

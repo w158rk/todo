@@ -41,7 +41,7 @@ class ScheduleForm extends Component {
         let handleChange = this.handleChange;
         
         return (
-        <form className="form-horizontal" >
+        <form className="form-horizontal" onSubmit={submitAction.bind(null, item)}>
             <div className="form-group">
                 <label className="col-sm-2 control-label">科目</label>
                 <div className="col-sm-10">
@@ -118,9 +118,7 @@ class ScheduleForm extends Component {
                         className="form-control" placeholder="备注"/>             
                 </div>
             </div>                        
-            <button className='btn btn-default btn-block'onClick={submitAction.bind(null, item)}> 
-            提交 
-            </button>
+            <input type='submit' className='btn btn-default btn-block'/>
         </form>
         );
   }

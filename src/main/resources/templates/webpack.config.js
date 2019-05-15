@@ -21,13 +21,20 @@ var config = {
     }]
   },
   devServer: {
-    host: "127.0.0.1",
-    port: 3000,
-    contentBase: "./public",
+    host: "localhost",
+    port: 8000,
+    contentBase: "./",
     colors: true,
     historyApiFallback: true,
-    inline: true
-  },
+    inline: true,
+    proxy: {
+      '/back/*': {
+          target: "http://localhost:8080/",//对应后端端口
+          secure: false,
+          changeOrigin: true
+      }
+    }
+  }
 }
 
 /*

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import update from 'react-addons-update'
 
 import ScheduleTableContainer from './ScheduleTableContainer';
 import ScheduleFormContainer from './ScheduleFormContainer';
@@ -16,10 +15,8 @@ class About extends Component {
     }
   
     componentDidMount(){
-        let url = "/back/schedule";
-        fetch(url, {
-            method : "get",
-        }) 
+        let url = "http://127.0.0.1:13000/back/schedule";
+        fetch(url)
         .then((response) => response.json())
         .then((responseData) => {
             console.log(responseData);
@@ -32,27 +29,7 @@ class About extends Component {
   
     addItem(item) {
         console.log(item);
-        let url = "/back/schedule/add";
-        fetch(url, {
-            method : "post",
-            body : {
-                item : item
-            }
-        })
-        .then((response) => {
-            if (response === "OK") {
-                console.log("back add ok");
-                let {data} = this.state
-                newItemList = update(data, {$push: [item]});
-                this.setState({
-                    data : newItemList
-                });
-            }
-        })
-        .catch((error) => {
-            console.log('Error fetching and parsing data', error);
-        });
-        
+        usr = "localhost:3000/schedule/add";
         this.setAdd();
     }
     
