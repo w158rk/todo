@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import update from 'react-addons-update'
 
 import STATUS from './consts'
 
@@ -16,8 +17,8 @@ class ScheduleForm extends Component {
             dueDate : "",
             finishDate : "",
             submitDate : "",
-             status : "",
-             note : ""
+            status : "",
+            note : ""
         };
         if(targetItem !== null) 
             item = targetItem;
@@ -30,7 +31,10 @@ class ScheduleForm extends Component {
     
     handleChange(target, event) {
         let {name, value} = event.target;
-        this.setState({ item : {[name]: value },
+        console.log(value);
+        let {item} = this.state;
+        let newItem = update(item, {$merge: {[name] : value}})
+        this.setState({ item : newItem ,
                         changed : true});
     }
         
@@ -41,10 +45,10 @@ class ScheduleForm extends Component {
         let handleChange = this.handleChange;
         
         return (
-        <form className="form-horizontal" >
+        <div className="form-horizontal" >
             <div className="form-group">
                 <label className="col-sm-2 control-label">科目</label>
-                <div className="col-sm-10">
+                <div className="input-group">
                     <input type='text' name='subject' value={item.subject}
                         onChange={handleChange.bind(this, event)}
                         className="form-control" placeholder="科目"/>             
@@ -52,57 +56,59 @@ class ScheduleForm extends Component {
             </div>
             <div className="form-group">
                 <label className="col-sm-2 control-label">主题</label>
-                <div className="col-sm-10">
+                <div className="input-group">
                     <input type='text' name='title' value={item.title}
-                        onChange={(name,value)=>this.handleChange}
+                        onChange={handleChange.bind(this, event)}
                         className="form-control" placeholder="主题"/>             
                 </div>
             </div>
             <div className="form-group">
                 <label className="col-sm-2 control-label">内容</label>
-                <div className="col-sm-10">
+                <div className="input-group">
                     <input type='text' name='content' value={item.content}
-                        onChange={(name,value)=>this.handleChange}
+                        onChange={handleChange.bind(this, event)}
                         className="form-control" placeholder="内容"/>             
                 </div>
             </div>
-            <div className="form-group">
-                <label className="col-sm-2 control-label">布置日期</label>
-                <div className="col-sm-10">
-                    <input type='text' name='issueDate' value={item.issueDate}
-                        onChange={(name,value)=>this.handleChange}
-                        className="form-control" placeholder="布置日期"/>             
+            <div className="form-group row form-datetime">
+                <label className="col-sm-2 col-form-label">布置日期</label>        
+                <div className='input-group date col-sm-4' id='datetimepicker1'>
+                    <input type='text' className="form-control"  name='issueDate'
+                        onChange={handleChange.bind(this, event)} value={item.issueDate}/>
+                    <span className="input-group-addon">
+                        <span className="glyphicon glyphicon-calendar"></span>
+                    </span>
                 </div>
             </div>
             <div className="form-group">
                 <label className="col-sm-2 control-label">截止日期</label>
-                <div className="col-sm-10">
+                <div className="input-group">
                     <input type='text' name='dueDate' value={item.dueDate}
-                        onChange={(name,value)=>this.handleChange}
+                        onChange={handleChange.bind(this, event)}
                         className="form-control" placeholder="截止日期"/>             
                 </div>
             </div>  
             <div className="form-group">
                 <label className="col-sm-2 control-label">完成日期</label>
-                <div className="col-sm-10">
+                <div className="input-group">
                     <input type='text' name='finishDate' value={item.finishDate}
-                        onChange={(name,value)=>this.handleChange}
+                        onChange={handleChange.bind(this, event)}
                         className="form-control" placeholder="完成日期"/>             
                 </div>
             </div>            
             <div className="form-group">
                 <label className="col-sm-2 control-label">提交日期</label>
-                <div className="col-sm-10">
+                <div className="input-group">
                     <input type='text' name='submitDate' value={item.submitDate}
-                        onChange={(name,value)=>this.handleChange}
+                        onChange={handleChange.bind(this, event)}
                         className="form-control" placeholder="提交日期"/>             
                 </div>
             </div> 
             <div className="form-group">
                 <label className="col-sm-2 control-label">状态</label>
-                <div className="col-sm-10">            
+                <div className="input-group">            
                     <select name='status' className="form-control" value={item.status}
-                            onChange={(name,value)=>this.handleChange}>
+                            onChange={handleChange.bind(this, event)}>
                         <option value={STATUS.WAITED}> 等待 </option>
                         <option value={STATUS.URGENT}> 紧急 </option>
                         <option value={STATUS.FINISHED}> 待提交 </option>
@@ -112,16 +118,18 @@ class ScheduleForm extends Component {
             </div>
             <div className="form-group">
                 <label className="col-sm-2 control-label">备注</label>
-                <div className="col-sm-10">
+                <div className="input-group">
                     <input type='text' name='note' value={item.note}
-                        onChange={(name,value)=>this.handleChange}
+                        onChange={handleChange.bind(this, event)}
                         className="form-control" placeholder="备注"/>             
                 </div>
-            </div>                        
-            <button className='btn btn-default btn-block'onClick={submitAction.bind(null, item)}> 
+            </div>    
+        
+            <button className='btn btn-default col-sm-8'onClick={submitAction.bind(null, item)}> 
             提交 
             </button>
-        </form>
+
+        </div>
         );
   }
 }

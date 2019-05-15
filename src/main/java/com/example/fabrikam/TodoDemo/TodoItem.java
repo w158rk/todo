@@ -37,4 +37,12 @@ public class TodoItem {
         this.status = 2;
     }
 
+    public String myString() {
+        String rtn = new String();
+        rtn += this.subject;
+        rtn += "-";
+        rtn += this.title;
+        return rtn;
+    }
+
 }

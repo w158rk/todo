@@ -35,25 +35,18 @@ class About extends Component {
         let url = "/back/schedule/add";
         fetch(url, {
             method : "post",
-            body : {
-                item : item
-            }
+            headers : {
+                "Content-Type" : "application/json; charset=UTF-8"
+            },
+            body : JSON.stringify(item)
         })
         .then((response) => {
-            if (response === "OK") {
-                console.log("back add ok");
-                let {data} = this.state
-                newItemList = update(data, {$push: [item]});
-                this.setState({
-                    data : newItemList
-                });
-            }
+            this.setAdd();
         })
         .catch((error) => {
-            console.log('Error fetching and parsing data', error);
+            console.log(error);
         });
         
-        this.setAdd();
     }
     
     deleteItem(itemId) {

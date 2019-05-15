@@ -1,41 +1,31 @@
 package com.example.fabrikam.TodoDemo;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+// import org.springframework.stereotype.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import java.util.ArrayList;
 
-import com.alibaba.fastjson.JSON;
-
-@Controller
+@RestController             // json格式响应前端
 public class ScheduleController {
 
     @Autowired
     private TodoItemRepository repository;
 
     @RequestMapping("/back/schedule")
-    public ResponseEntity<String> index() {
+    public ArrayList<TodoItem> index() {
         ArrayList<TodoItem> todoList = (ArrayList<TodoItem>) repository.findAll();
 
-        // System.out.println(todoList.length);
-        String jsonString = JSON.toJSONString(todoList);
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Access-Control-Allow-Origin", "*");
-
-        System.out.println(jsonString);
-        return new ResponseEntity<String>(jsonString, headers,  HttpStatus.OK);
+        return todoList;
     }
 
-    @RequestMapping("/back/schedule/add")
-    public String addTodo(@ModelAttribute TodoItem requestItem) {
+    @RequestMapping(value="/back/schedule/add", method=RequestMethod.POST)
+    public String addTodo(@RequestBody TodoItem requestItem) {
         repository.save(requestItem);
+        System.out.println(requestItem.toString());
         return "redirect:/schedule";
     }
 
@@ -50,3 +40,12 @@ public class ScheduleController {
         // return "redirect:/";
     // }
 }
+
+        // System.out.println(todoList.length);
+        // String jsonString = JSON.toJSONString(todoList);
+
+        // HttpHeaders headers = new HttpHeaders();
+        // headers.add("Access-Control-Allow-Origin", "*");
+
+        // System.out.println(jsonString);
+        // return new ResponseEntity<String>(jsonString, headers,  HttpStatus.OK);
