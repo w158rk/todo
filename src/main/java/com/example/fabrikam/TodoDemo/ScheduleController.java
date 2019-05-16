@@ -29,16 +29,19 @@ public class ScheduleController {
         return "redirect:/schedule";
     }
 
-    // @RequestMapping("/update")
-    // public String updateTodo(@ModelAttribute TodoListViewModel requestItems) {
-        // for (TodoItem requestItem : requestItems.getTodoList() ) {
-             // TodoItem item = new TodoItem(requestItem.getCategory(), requestItem.getName());
-             // item.setComplete(requestItem.isComplete());
-             // item.setId(requestItem.getId());
-             // repository.save(item);
-        // }
-        // return "redirect:/";
-    // }
+    @RequestMapping("/back/schedule/update")
+    public String updateTodo(@RequestBody TodoItem requestItem) {
+        repository.save(requestItem);
+        System.out.println(requestItem.toString());
+        return "redirect:/schedule";
+    }
+
+    @RequestMapping("/back/schedule/delete")
+    public String deleteTodo(@RequestBody TodoItem requestItem) {
+        repository.delete(requestItem);
+        System.out.println(requestItem.toString());
+        return "redirect:/schedule";
+    }
 }
 
         // System.out.println(todoList.length);

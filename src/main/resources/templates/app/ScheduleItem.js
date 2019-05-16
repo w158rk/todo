@@ -53,11 +53,11 @@ class ScheduleItem extends Component {
             <td>{item.note}</td>
             <td>
                 <button className="btn btn-default btn-sm" 
-                        onClick={updateItem.bind(null, item.itemId)}>
+                        onClick={updateItem.bind(this, item)}>
                 修改  </button>
                 <br />
                 <button className="btn btn-default btn-sm" 
-                        onClick={deleteItem.bind(null)}>
+                        onClick={deleteItem.bind(this, item)}>
                 删除  </button>
             </td>
         </tr>

@@ -11,7 +11,7 @@ class About extends Component {
           data: [],
           isAdd: false,
           isUpdate: false,
-          targetItem: null                    // the update target 
+          targetItem: null,                    // the update target 
         };
     }
   
@@ -29,9 +29,18 @@ class About extends Component {
             console.log('Error fetching and parsing data', error);
         });
     }
-  
+
+    componentDidUpdate(){
+        let {isUpdate} = this.state;
+        console.log(isUpdate);
+        if(isUpdate){
+            this.componentDidMount();
+            this.setState({isUpdate : false});
+        }
+    }
+
+
     addItem(item) {
-        console.log(item);
         let url = "/back/schedule/add";
         fetch(url, {
             method : "post",
@@ -41,7 +50,10 @@ class About extends Component {
             body : JSON.stringify(item)
         })
         .then((response) => {
-            this.setAdd();
+            this.setState({
+                isUpdate : true
+            });
+            this.setAdd();                          // close the input form
         })
         .catch((error) => {
             console.log(error);
@@ -49,27 +61,45 @@ class About extends Component {
         
     }
     
-    deleteItem(itemId) {
-        
+    deleteItem(item) {
+        console.log(item);
+        let url = "/back/schedule/delete";
+        fetch(url, {
+            method : "post",
+            headers : {
+                "Content-Type" : "application/json; charset=UTF-8"
+            },
+            body : JSON.stringify(item)
+        })
+        .then((respond) => {
+            this.setState({
+                isUpdate : true
+            });
+        })
+        .catch(error => {
+            console.log(error);
+        })
     }
     
-    updateItem(itemId) {
-        let targetItem = this.state.data.find((item)=>item.itemId==itemId);
-        console.log(itemId);
-        this.setState({targetItem : targetItem,
-                        isUpdate : true});
-    }
-    
-    updateItemSubmit(itemId, newItem) {
-        let itemIndex = this.state.data.findIndex((item)=>item.itemId==itemId);
-        let nextState = update(this.state.data, {
-                                [itemIndex] : {$set : item}
-                               });
-        console.log(itemId, itemIndex);
-        // this.setState({data : nextState});
-        
-        // this statement must at the end of the function
-        this.setState({isUpdate : false})
+    updateItem(item) {
+        console.log(item);
+        let url = "/back/schedule/update";
+        fetch(url, {
+            method : "post",
+            headers : { 
+                "Content-Type" : "application/json; charset=UTF-8"
+            },
+            body : JSON.stringify(item)
+        })
+        .then((respond) => {
+            this.setState({
+                isUpdate : true
+            });
+            this.forceUpdate()
+        })
+        .catch(error => {
+            console.log(error);
+        })
     }
     
     markItem(itemId, status) {
@@ -83,7 +113,8 @@ class About extends Component {
     
     setAdd() {
         let {isAdd} = this.state;
-        this.setState({isAdd : !isAdd});
+        let newIsAdd = !isAdd;
+        this.setState({isAdd : newIsAdd});
     }
     
     sortItems(keyName) {            // finished
@@ -114,7 +145,7 @@ class About extends Component {
 
   render() {
     let listItems = this.state.data;
-    const {isAdd, isUpdate} = this.state;
+    const {isAdd} = this.state;
     
     var element2 = null;
     if(isAdd) { 
@@ -127,18 +158,6 @@ class About extends Component {
             <ScheduleFormContainer targetItem={null} submitAction={submitAction}/>
         </div>
         );
-    } else if (isUpdate) {
-        let submitAction = this.updateItemSubmit.bind(this);
-        //  get the id and index of the target item 
-        let {targetItem} = this.state;
-
-        element2 = (
-        <div className="container">
-            <br />
-            <br />
-            <ScheduleFormContainer targetItem={targetItem} submitAction={submitAction}/>
-        </div>
-        );        
     }
     else  
         element2 = (

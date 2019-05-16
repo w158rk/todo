@@ -31,7 +31,6 @@ class ScheduleForm extends Component {
     
     handleChange(target, event) {
         let {name, value} = event.target;
-        console.log(value);
         let {item} = this.state;
         let newItem = update(item, {$merge: {[name] : value}})
         this.setState({ item : newItem ,
