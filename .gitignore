@@ -25,4 +25,7 @@ nbdist/
 
 ustcthesis
 node_modules/
-back/
+back/ 
+
+mvnw 
+mvnw.cmd
