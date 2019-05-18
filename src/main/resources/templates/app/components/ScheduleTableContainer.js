@@ -1,17 +1,14 @@
 import React, { Component, PropTypes } from 'react';
-// import { Link } from 'react-router';
 import 'whatwg-fetch';
 import ScheduleTable from './ScheduleTable'
-import update from 'react-addons-update';
-import findIndex from 'babel-polyfill';
 
 class ScheduleTableContainer extends Component {
 
     render() {
-        const {listItems, itemActions} = this.props;
+        const {items, itemActions} = this.props;
         return (
             <div className='container'>
-                <ScheduleTable listItems={listItems} 
+                <ScheduleTable items={items} 
                                itemActions={itemActions} />
 
             </div>
@@ -19,12 +16,8 @@ class ScheduleTableContainer extends Component {
     }
 }
 
-                // <button className="btn btn-primary btn-lg btn-block" onClick={this.submit.bind(this)}> 
-                // 提交
-                // </button>
-
 ScheduleTableContainer.propTypes = {
-    listItems   :   PropTypes.arrayOf(PropTypes.object),
+    items   :   PropTypes.arrayOf(PropTypes.object),
     itemActions :   PropTypes.object
 }
 

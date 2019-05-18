@@ -1,14 +1,14 @@
 import React, { Component, PropTypes } from 'react';
 import update from 'react-addons-update'
 
-import STATUS from './consts'
+import Consts from './consts'
 
 class ScheduleForm extends Component {
     
     constructor(props){
         super(props);
-        let {targetItem} = this.props;
-        console.log(targetItem);
+
+        let {STATUS} = Consts;
         let item = {
             subject : "",
             title : "",
@@ -17,15 +17,13 @@ class ScheduleForm extends Component {
             dueDate : "",
             finishDate : "",
             submitDate : "",
-            status : "",
+            status : STATUS.WAITED,
             note : ""
         };
-        if(targetItem !== null) 
-            item = targetItem;
 
         this.state = {
-            item: item,
-        };
+            item : item
+        }
     }
     
     
@@ -42,6 +40,7 @@ class ScheduleForm extends Component {
         let {submitAction} = this.props;
         let {item} = this.state;
         let handleChange = this.handleChange;
+        let {STATUS} = Consts;
         
         return (
         <div className="form-horizontal" >

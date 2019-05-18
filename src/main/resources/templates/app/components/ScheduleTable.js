@@ -12,7 +12,7 @@ class ScheduleTable extends Component {
   
   render() {
               
-    let listItems = this.props.listItems.map((item) => (
+    let listItems = this.props.items.map((item) => (
         <ScheduleItem key={item.itemId} item={item} itemActions={this.props.itemActions}/>
     ));
     

@@ -29,14 +29,14 @@ public class ScheduleController {
         return "redirect:/schedule";
     }
 
-    @RequestMapping("/back/schedule/update")
+    @RequestMapping(value="/back/schedule/update", method=RequestMethod.PUT)
     public String updateTodo(@RequestBody TodoItem requestItem) {
         repository.save(requestItem);
         System.out.println(requestItem.toString());
         return "redirect:/schedule";
     }
 
-    @RequestMapping("/back/schedule/delete")
+    @RequestMapping(value="/back/schedule/delete", method=RequestMethod.DELETE)
     public String deleteTodo(@RequestBody TodoItem requestItem) {
         repository.delete(requestItem);
         System.out.println(requestItem.toString());

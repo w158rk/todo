@@ -4,8 +4,8 @@ import { render } from 'react-dom';
 import { Router, Route, IndexRoute, Link } from 'react-router';
 import createBrowserHistory from 'history/lib/createBrowserHistory'
 
-import Home from './Home';
-import Schedule from './Schedule';
+import Home from './components/Home';
+import Schedule from './components/Schedule';
 
 
 class App extends Component {
