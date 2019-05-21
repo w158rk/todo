@@ -25,7 +25,6 @@ class ScheduleItem extends Component {
         });
         let {item} = this.props;
         let {draft} = this.state;
-        console.log(draft);
         let {updateItem} = this.props.itemActions;
         updateItem(item, draft);
     }
@@ -71,7 +70,6 @@ class ScheduleItem extends Component {
         let {deleteItem} = this.props.itemActions;
         let {isChange} = this.state;
         let rtn = null; 
-        console.log("ischange : ", isChange)
 
         if(isChange) {
             rtn = (

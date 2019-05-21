@@ -22,7 +22,6 @@ class ScheduleStore extends ReduceStore {
 
   reduce(state, action){
 
-        console.log("type : ", action.type);
         let itemIndex = null;                       // declaration
         switch (action.type) {
         case constants.FETCH_SCHEDULES_SUCCESS:

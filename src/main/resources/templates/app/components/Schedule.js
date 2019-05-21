@@ -5,7 +5,8 @@ import {Container} from 'flux/utils';
 import ScheduleTableContainer from './ScheduleTableContainer';
 import ScheduleFormContainer from './ScheduleFormContainer';
 import ScheduleStore from '../stores/ScheduleStore';
-import ScheduleActionCreator from '../actions/ScheduleActionCreator'
+import ScheduleActionCreator from '../actions/ScheduleActionCreator';
+import Consts from './consts';
 
 class Schedule extends Component {
     constructor(){
@@ -21,9 +22,10 @@ class Schedule extends Component {
     componentDidMount(){
         ScheduleActionCreator.fetchSchedules();
     }
-
+    
     addItem(item) {
         ScheduleActionCreator.addSchedule(item);
+        this.setAdd();
     }
     
     deleteItem(item) {
@@ -45,25 +47,16 @@ class Schedule extends Component {
         ScheduleActionCreator.sortSchedule(items, keyName);
     }
     
-    getCmpFunction(keyName) {           // finished
-        var func = function (o, p) {
-                var a, b;
-                if (typeof o === "object" && typeof p === "object" && o && p) {
-                    a = o[keyName];
-                    b = p[keyName];
-                    if (a === b) {
-                        return 0;
-                    }
-                    if (typeof a === typeof b) {
-                        return a < b ? -1 : 1;
-                    }
-                    return typeof a < typeof b ? -1 : 1;
-                }
-        }
-        
-        return func;
+    cleanSubmitted() {
+        let {STATUS} = Consts;
+        let {items} = this.state;
+        let newItems = items.filter((item) => {return item.status!=STATUS.SUBMITTED;});            // get the unfinished items 
+        console.log(newItems);
+        console.log(items == newItems);
+        this.setState({items : newItems});
     }
-    
+
+        
 
   render() {
     let {items, isAdd} = this.state;
@@ -82,11 +75,15 @@ class Schedule extends Component {
     }
     else  
         element2 = (
-            <button className="btn btn-primary btn-lg btn-block" onClick={this.setAdd.bind(this)}> 
+        <div className="container">
+            <button className="btn btn-default" onClick={this.setAdd.bind(this)}> 
             添加条目
             </button>
+            <button className="btn btn-default" onClick={this.cleanSubmitted.bind(this)}> 
+            隐藏已完成项目
+            </button>
+        </div>
         );
-    console.log(items);
     return (
         <div className="container">
             <ScheduleTableContainer items={items} itemActions={{

@@ -26,8 +26,7 @@ let ScheduleAPI = {
         method: 'post',
         headers: API_HEADERS,
         body: JSON.stringify(item)
-        })
-        .then((response) => response.json())
+        });
     },
 
     updateSchedule(item, draftSchedule) {

@@ -12,11 +12,11 @@ class App extends Component {
   render() {
     return (
       <div className='container' >
-        <div className="container navbar navbar-info">
-          <ul>
-            <li ><Link to="/schedule" activeClassName="active">Schedule</Link></li>
-          </ul>
-        </div>
+        <ul className="nav nav-fill nav-pills justify-content-center">
+            <li className="nav-item">
+                <Link className="nav-link active" to="/schedule" activeClassName="active">Schedule</Link>
+            </li>
+        </ul>
         {this.props.children}
       </div>
     );
